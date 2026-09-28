@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Compact Merging of Vision-Language-Action Models: Shared Cores and Spectral Residuals</title>
+  <title>CARVE: Skill-Preserving Continual Merging of VLA Experts</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Source+Serif+4:wght@400;600;700&display=swap" rel="stylesheet"/>
   <style>
@@ -40,6 +40,7 @@
       --sh-l:  0 10px 40px rgba(91,155,213,.15),0 4px 14px rgba(0,0,0,.07);
       --r: 10px;
     }
+    <!-- ── CSS 추가 (index.html의 <style> 태그 안에 넣어줘) ── -->
     .suite-block {
       margin-top: 40px;
     }
@@ -604,6 +605,63 @@
       overflow: hidden;
       box-shadow: 0 4px 24px rgba(0,0,0,.10), 0 1px 6px rgba(0,0,0,.07);
     }
+      /* ── REAL-WORLD SECTION ── */
+  .rw-sec{background:var(--white);border-bottom:1px solid var(--border);}
+ 
+  /* video cards */
+  .rw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px;}
+  .rw-card{
+    background:var(--white);border:1.5px solid var(--border);
+    border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);
+    transition:border-color .17s,box-shadow .17s;
+  }
+  .rw-card:hover{border-color:var(--sky);box-shadow:var(--sh-m);}
+  .rw-screen{aspect-ratio:4/3;background:var(--bg2);position:relative;overflow:hidden;}
+  .rw-screen video{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;}
+  .rw-badge{
+    position:absolute;top:9px;left:10px;z-index:2;
+    font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:#fff;background:rgba(26,35,50,.72);
+    padding:3px 9px;border-radius:100px;backdrop-filter:blur(4px);
+  }
+  .rw-body{padding:14px 16px 16px;}
+  .rw-name{font-family:'Source Serif 4',serif;font-weight:700;font-size:1.02rem;color:var(--text);}
+  .rw-crit{font-size:.77rem;color:var(--text-m);line-height:1.55;margin-top:5px;}
+ 
+  /* table */
+  .rw-table-wrap{
+    margin-top:22px;background:var(--white);
+    border:1px solid var(--border);border-radius:var(--r);
+    overflow:hidden;box-shadow:var(--sh);
+  }
+  table.rw-table{width:100%;border-collapse:collapse;font-size:.88rem;}
+  .rw-table th{
+    background:var(--sky-ll);color:var(--text-b);
+    font-size:.7rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+    padding:11px 18px;text-align:center;border-bottom:1.5px solid var(--sky-m);
+  }
+  .rw-table th:first-child{text-align:left;}
+  .rw-table th.ours-h{color:var(--green);}
+  .rw-table td{
+    padding:11px 18px;text-align:center;color:var(--text-m);
+    border-bottom:1px solid var(--border);font-variant-numeric:tabular-nums;
+  }
+  .rw-table td:first-child{text-align:left;color:var(--text);font-weight:600;}
+  .rw-table td.ours-c{color:var(--green);font-weight:700;}
+  .rw-table tr:last-child td{border-bottom:none;}
+ 
+  /* setup prose */
+  .rw-setup-text{
+    margin-top:26px;
+    font-size:.9rem;color:var(--text-m);line-height:1.85;
+  }
+  .rw-setup-text + .rw-setup-text{margin-top:12px;}
+  .rw-setup-text strong{color:var(--text-b);font-weight:600;}
+ 
+  @media(max-width:768px){
+    .rw-grid{grid-template-columns:1fr;}
+    .rw-table th,.rw-table td{padding:9px 10px;font-size:.8rem;}
+  }
   </style>
 </head>
 <body>
@@ -612,6 +670,7 @@
 <nav>
   <span class="nav-logo">CARVE</span>
   <ul class="nav-links">
+    <li><a href="#realworld">Real-World</a></li>
     <li><a href="#teaser">Demo</a></li>
     <li><a href="#abstract">Abstract</a></li>
     <li><a href="#method">Method</a></li>
@@ -624,16 +683,163 @@
 
 <!-- ─── HERO ─── -->
 <header class="hero">
+  <div class="venue-pill">NeurIPS 2026 &nbsp;·&nbsp; Anonymous Submission</div>
+
   <h1>
-    Compact Merging of Vision-Language-Action Models:
-    Shared Cores and Spectral Residuals
+    <span class="c1">Skill-Preserving Continual Merging </span> <br/>
+    of Vision-Language-Action Experts
   </h1>
   <div class="hero-acronym">
-    CARVE: Continual Adaptive Residual-preserving VLA Expert merging
+    CARVE: <em>C</em>ontinual <em>A</em>daptive <em>R</em>esidual-preserving <em>V</em>LA <em>E</em>xpert merging
   </div>
 
+  <div class="authors">
+    Anonymous Author(s)
+  </div>
+
+  <div class="btn-row">
+    <a href="https://github.com/anonymousprojectpage2/CARVE" class="btn btn-o" target="_blank">
+      <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+      </svg>
+      Code (GitHub)
+    </a>
+    <a href="#comparison" class="btn btn-o">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <polygon points="5,3 19,12 5,21"/>
+      </svg>
+      Qualitative Results ↓
+    </a>
+  </div>
 </header>
 
+<!-- ─── TEASER VIDEO ───
+<section id="teaser" class="teaser-wrap">
+  <div class="teaser-inner">
+    <div style="text-align:center;margin-bottom:8px;">
+      <span class="t-label">Overview Video</span>
+    </div>
+    <div class="t-title" style="text-align:center;">CARVE: Continual Expert Merging without Forgetting</div>
+    <div class="t-frame">
+      <div class="t-bar">
+        <div class="td td-r"></div>
+        <div class="td td-y"></div>
+        <div class="td td-g"></div>
+        <span class="t-fname">carve_overview_teaser.mp4</span>
+        <span class="t-badge">● TEASER</span>
+      </div>
+      <div class="t-screen"> -->
+        <!-- 
+             <video autoplay loop muted playsinline src="static/videos/teaser.mp4"></video> -->
+        <!-- <div class="play-lg">▶</div>
+        <span style="font-size:.8rem;color:#2d4a6a;">Overview teaser video</span>
+        <span class="t-hint">src="static/videos/teaser.mp4"</span>
+      </div>
+    </div>
+    <p class="t-caption">
+      CARVE maintains a compact merge state — a shared global core plus skill-local spectral residuals —
+      enabling continual VLA expert admission without retaining full checkpoints or revisiting past robot data.
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div> -->
+
+<section id="realworld" class="rw-sec">
+  <div class="sec">
+    <h2 class="sec-h">Real-World Evaluation on SO-101</h2>
+ 
+    <!-- per-task rollouts -->
+    <div class="rw-grid rv">
+ 
+      <!-- Task 1 -->
+      <div class="rw-card">
+        <div class="rw-screen">
+          <span class="rw-badge">CARVE rollout</span>
+          <video autoplay loop muted playsinline
+                 src="static/videos/push_cube.mp4"></video>
+        </div>
+        <div class="rw-body">
+          <div class="rw-name">Push Cube</div>
+          <div class="rw-crit">Success: the cube comes to rest fully inside the white target region.</div>
+        </div>
+      </div>
+ 
+      <!-- Task 2 -->
+      <div class="rw-card">
+        <div class="rw-screen">
+          <span class="rw-badge">CARVE rollout</span>
+          <video autoplay loop muted playsinline
+                 src="static/videos/pick_and_place.mp4"></video>
+        </div>
+        <div class="rw-body">
+          <div class="rw-name">Pick &amp; Place</div>
+          <div class="rw-crit">Success: the cube is stably placed inside the black container.</div>
+        </div>
+      </div>
+ 
+      <!-- Task 3 -->
+      <div class="rw-card">
+        <div class="rw-screen">
+          <span class="rw-badge">CARVE rollout</span>
+          <video autoplay loop muted playsinline
+                 src="static/videos/stack_cube.mp4"></video>
+        </div>
+        <div class="rw-body">
+          <div class="rw-name">Stack Cube</div>
+          <div class="rw-crit">Success: the red cube stays stacked on the blue cube without slipping.</div>
+        </div>
+      </div>
+ 
+    </div><!-- /rw-grid -->
+ 
+    <!-- results table -->
+    <div class="rw-table-wrap rv">
+      <table class="rw-table">
+        <thead>
+          <tr>
+            <th>Task</th>
+            <th>Full Expert Bank</th>
+            <th class="ours-h">CARVE (Ours)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Push Cube</td>
+            <td>75.0</td>
+            <td class="ours-c">70.0</td>
+          </tr>
+          <tr>
+            <td>Pick &amp; Place</td>
+            <td>75.0</td>
+            <td class="ours-c">85.0</td>
+          </tr>
+          <tr>
+            <td>Stack Cube</td>
+            <td>55.0</td>
+            <td class="ours-c">50.0</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+ 
+    <!-- setup described in prose -->
+    <p class="rw-setup-text">
+      Beyond simulation, we deploy CARVE on a physical <strong>SO-101</strong> manipulator across three
+      cube manipulation tasks. Each task is learned from <strong>50 human-teleoperated demonstrations</strong>,
+      and the resulting task-specific expert is admitted sequentially into a single CARVE merge state.
+      At test time every skill is instantiated from that one compact state — no per-task checkpoint is retained.
+    </p>
+    <p class="rw-setup-text">
+      For every model and task we run <strong>20 rollouts</strong> and report the success rate (%).
+      Averaged over the three tasks, CARVE matches the full expert bank (68.3% vs. 68.3%),
+      indicating that skill-local residuals retain the fine-grained action behavior required
+      for contact-rich manipulation on real hardware.
+    </p>
+  </div>
+</section>
+
+<!-- ─── ABSTRACT ─── -->
 <!-- ─── ABSTRACT ─── -->
 <section id="abstract">
   <div class="sec">
@@ -657,7 +863,6 @@
       </div>
     </div>
 
-    <!-- 초록 본문 -->
     <div class="abs-text rv" style="margin-top:28px;">
       <strong>Vision-Language-Action (VLA) policies</strong> are increasingly adapted into task-specific
       experts as robots encounter new tasks, objects, and environments after deployment.
@@ -1243,6 +1448,165 @@
 </section>
 
 <div class="divider"></div>
+
+<!-- 
+<section id="benchmark" style="background:var(--sky-ll);padding:68px 24px;">
+    <div style="max-width:1080px;margin:0 auto;">
+      <div class="sec-tag">Robustness Evaluation</div>
+      <h2 class="sec-h">LIBERO-Plus Demonstrations</h2>
+      <p style="color:var(--text-m);max-width:680px;margin-top:10px;font-size:.97rem;line-height:1.75;">
+        CARVE is evaluated on LIBERO-Plus, which extends LIBERO with seven structured perturbations
+        covering visual appearance, lighting, object placement, and scene dynamics.
+        Below: one original rollout and seven perturbation variants, all instantiated from the same compact merge state.
+      </p>
+  
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:28px;" class="rv">
+
+        <div class="bench-card">
+          <div class="bench-screen">
+            <!-- <video autoplay loop muted playsinline src="static/videos/liberoplus_original.mp4"></video> 
+            <div class="bench-ph">
+              <div class="play-m">▶</div>
+              <span style="font-size:.68rem;color:var(--border2);font-family:monospace;">liberoplus_original.mp4</span>
+            </div>
+          </div>
+          <div class="bench-info">
+            <div class="bench-suite">Original</div>
+            <div class="bench-task">Standard rollout without perturbation</div>
+            <div class="bench-tags">
+              <span class="bench-tag bt-green">CARVE</span>
+            </div>
+          </div>
+        </div>
+  
+        <div class="bench-card">
+          <div class="bench-screen">
+            <!-- <video autoplay loop muted playsinline src="static/videos/liberoplus_object_layout.mp4"></video> 
+            <div class="bench-ph">
+              <div class="play-m">▶</div>
+              <span style="font-size:.68rem;color:var(--border2);font-family:monospace;">object_layout.mp4</span>
+            </div>
+          </div>
+          <div class="bench-info">
+            <div class="bench-suite">Perturbation 1</div>
+            <div class="bench-task">Object Layout</div>
+            <div class="bench-tags">
+              <span class="bench-tag bt-sky">Confounding objects & displacement</span>
+            </div>
+          </div>
+        </div>
+  
+        <div class="bench-card">
+          <div class="bench-screen">
+            <!-- <video autoplay loop muted playsinline src="static/videos/liberoplus_camera.mp4"></video> 
+            <div class="bench-ph">
+              <div class="play-m">▶</div>
+              <span style="font-size:.68rem;color:var(--border2);font-family:monospace;">camera_viewpoints.mp4</span>
+            </div>
+          </div>
+          <div class="bench-info">
+            <div class="bench-suite">Perturbation 2</div>
+            <div class="bench-task">Camera Viewpoints</div>
+            <div class="bench-tags">
+              <span class="bench-tag bt-sky">Position, orientation & FoV</span>
+            </div>
+          </div>
+        </div>
+  
+        <div class="bench-card">
+          <div class="bench-screen">
+            <!-- <video autoplay loop muted playsinline src="static/videos/liberoplus_robot_states.mp4"></video> 
+            <div class="bench-ph">
+              <div class="play-m">▶</div>
+              <span style="font-size:.68rem;color:var(--border2);font-family:monospace;">robot_states.mp4</span>
+            </div>
+          </div>
+          <div class="bench-info">
+            <div class="bench-suite">Perturbation 3</div>
+            <div class="bench-task">Robot Initial States</div>
+            <div class="bench-tags">
+              <span class="bench-tag bt-sky">Manipulator pose variations</span>
+            </div>
+          </div>
+        </div>
+  
+        <div class="bench-card">
+          <div class="bench-screen">
+            <!-- <video autoplay loop muted playsinline src="static/videos/liberoplus_language.mp4"></video> 
+            <div class="bench-ph">
+              <div class="play-m">▶</div>
+              <span style="font-size:.68rem;color:var(--border2);font-family:monospace;">language_instructions.mp4</span>
+            </div>
+          </div>
+          <div class="bench-info">
+            <div class="bench-suite">Perturbation 4</div>
+            <div class="bench-task">Language Instructions</div>
+            <div class="bench-tags">
+              <span class="bench-tag bt-sky">LLM-based instruction rewriting</span>
+            </div>
+          </div>
+        </div>
+  
+        <div class="bench-card">
+          <div class="bench-screen">
+            <!-- <video autoplay loop muted playsinline src="static/videos/liberoplus_lighting.mp4"></video> 
+            <div class="bench-ph">
+              <div class="play-m">▶</div>
+              <span style="font-size:.68rem;color:var(--border2);font-family:monospace;">lighting_conditions.mp4</span>
+            </div>
+          </div>
+          <div class="bench-info">
+            <div class="bench-suite">Perturbation 5</div>
+            <div class="bench-task">Lighting Conditions</div>
+            <div class="bench-tags">
+              <span class="bench-tag bt-sky">Intensity, color & shadow</span>
+            </div>
+          </div>
+        </div>
+  
+        <div class="bench-card">
+          <div class="bench-screen">
+            <!-- <video autoplay loop muted playsinline src="static/videos/liberoplus_background.mp4"></video> 
+            <div class="bench-ph">
+              <div class="play-m">▶</div>
+              <span style="font-size:.68rem;color:var(--border2);font-family:monospace;">background_textures.mp4</span>
+            </div>
+          </div>
+          <div class="bench-info">
+            <div class="bench-suite">Perturbation 6</div>
+            <div class="bench-task">Background Textures</div>
+            <div class="bench-tags">
+              <span class="bench-tag bt-sky">Scene & surface appearance</span>
+            </div>
+          </div>
+        </div>
+  
+        <div class="bench-card">
+          <div class="bench-screen">
+            <!-- <video autoplay loop muted playsinline src="static/videos/liberoplus_sensor.mp4"></video> 
+            <div class="bench-ph">
+              <div class="play-m">▶</div>
+              <span style="font-size:.68rem;color:var(--border2);font-family:monospace;">sensor_noise.mp4</span>
+            </div>
+          </div>
+          <div class="bench-info">
+            <div class="bench-suite">Perturbation 7</div>
+            <div class="bench-task">Sensor Noise</div>
+            <div class="bench-tags">
+              <span class="bench-tag bt-sky">Photometric distortion & degradation</span>
+            </div>
+          </div>
+        </div>
+  
+      </div>
+  
+        </div>
+      </div>
+  
+    </div>
+  </section>
+
+<div class="divider"></div> -->
 
 <script>
   function copyBib() {
